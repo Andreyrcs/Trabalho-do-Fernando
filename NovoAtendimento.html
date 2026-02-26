@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Reunião - AgendaPro</title>
+    <link rel="stylesheet" href="./assents/css/Novoatendimento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="meeting-card">
+            <div class="card-header">
+                <a href="Dashboard.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+                <h1><i class="fas fa-plus-circle"></i> Agendar Nova Reunião</h1>
+            </div>
+            
+            <form class="meeting-form">
+                <div class="form-group">
+                    <label for="titulo">Título da Reunião</label>
+                    <input type="text" id="titulo" placeholder="Ex: Reunião de alinhamento" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hora-inicio">Hora Início</label>
+                        <input type="time" id="hora-inicio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hora-fim">Hora Fim</label>
+                        <input type="time" id="hora-fim" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="local">Local / Link</label>
+                    <input type="text" id="local" placeholder="Sala física ou link da reunião virtual">
+                </div>
+                
+                <div class="form-group">
+                    <label for="participantes">Participantes (emails separados por vírgula)</label>
+                    <input type="text" id="participantes" placeholder="email1@exemplo.com, email2@exemplo.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao">Descrição / Pauta</label>
+                    <textarea id="descricao" rows="4" placeholder="Descreva os tópicos a serem discutidos..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cor">Cor do Evento</label>
+                    <div class="color-options">
+                        <input type="color" id="cor" value="#4f46e5">
+                        <span>Selecione uma cor para identificar a reunião</span>
+                    </div>
+                </div>
+                
+                <div class="form-group reminder-group">
+                    <label>
+                        <input type="checkbox"> Enviar lembrete por e-mail
+                    </label>
+                    <select>
+                        <option>15 minutos antes</option>
+                        <option>30 minutos antes</option>
+                        <option>1 hora antes</option>
+                        <option>1 dia antes</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="window.location.href='index.html'">Cancelar</button>
+                    <button type="submit" class="btn-save">Agendar Reunião</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

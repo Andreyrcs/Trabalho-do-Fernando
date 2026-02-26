@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgendaPro</title>
+    <link rel="stylesheet" href="./assents/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i>
+                <h2>AgendaPro</h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="active">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendário</span>
+                </a>
+                <a href="reunioes.html">
+                    <i class="fas fa-clock"></i>
+                    <span>Reuniões</span>
+                </a>
+                <a href="participantes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Participantes</span>
+                </a>
+                <a href="relatorios.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Relatórios</span>
+                </a>
+                <a href="configuracoes.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=João+Silva&background=4f46e5&color=fff&size=40" alt="Avatar">
+                <div>
+                    <p>João Silva</p>
+                    <small>joao@email.com</small>
+                </div>
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-title">
+                    <h1>Calendário de Reuniões</h1>
+                    <p class="date-today">26 de Fevereiro, 2026</p>
+                </div>
+                <a href="nova-reuniao.html" class="btn-new-meeting">
+                    <i class="fas fa-plus"></i> Nova Reunião
+                </a>
+            </header>
+
+            <!-- Calendário -->
+            <div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <div class="month-nav">
+                        <a href="#" class="nav-btn"><i class="fas fa-chevron-left"></i></a>
+                        <h2>Fevereiro 2026</h2>
+                        <a href="#" class="nav-btn"><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="view-options">
+                        <a href="#" class="active">Mês</a>
+                        <a href="#">Semana</a>
+                        <a href="#">Dia</a>
+                    </div>
+                </div>
+
+                <div class="calendar">
+                    <div class="weekdays">
+                        <div>Dom</div>
+                        <div>Seg</div>
+                        <div>Ter</div>
+                        <div>Qua</div>
+                        <div>Qui</div>
+                        <div>Sex</div>
+                        <div>Sáb</div>
+                    </div>
+                    <div class="days">
+                        <!-- Dias do mês anterior -->
+                        <div class="day other-month">
+                            <span class="day-number">26</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">27</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">28</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">29</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">30</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">31</span>
+                        </div>
+                        
+                        <!-- Dias do mês atual -->
+                        <div class="day">
+                            <span class="day-number">1</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">2</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">3</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">4</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">5</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">6</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">7</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">8</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">9</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">10</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">11</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">12</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">13</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">14</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">15</span>
+                        </div>
+                        
+                        <!-- Dia com reuniões -->
+                        <div class="day has-meetings">
+                            <span class="day-number">16</span>
+                            <div class="meeting-indicator"></div>
+                            <div class="meeting-preview">
+                                <p><strong>14:00</strong> - Planejamento</p>
+                                <p><strong>16:30</strong> - Review</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day">
+                            <span class="day-number">17</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">18</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">19</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">20</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">21</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">22</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">23</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">24</span>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">25</span>
+                        </div>
+                        
+                        <!-- Dia atual -->
+                        <div class="day today">
+                            <span class="day-number">26</span>
+                            <div class="meeting-indicator"></div>
+                            <div class="meeting-preview">
+                                <p><strong>09:00</strong> - Planejamento Estratégico</p>
+                                <p><strong>14:30</strong> - Revisão de Projeto</p>
+                                <p><strong>16:00</strong> - Feedback Semanal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day has-meetings">
+                            <span class="day-number">27</span>
+                            <div class="meeting-indicator"></div>
+                            <div class="meeting-preview">
+                                <p><strong>10:00</strong> - Reunião com Cliente</p>
+                            </div>
+                        </div>
+                        <div class="day">
+                            <span class="day-number">28</span>
+                        </div>
+                        
+                        <!-- Dias do próximo mês -->
+                        <div class="day other-month">
+                            <span class="day-number">1</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">2</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">3</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">4</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">5</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">6</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">7</span>
+                        </div>
+                        <div class="day other-month">
+                            <span class="day-number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reuniões do Dia -->
+            <div class="daily-meetings">
+                <div class="section-header">
+                    <h2>Reuniões de Hoje <span class="date-badge">26/02/2026</span></h2>
+                    <a href="reunioes.html" class="view-all">Ver todas</a>
+                </div>
+                
+                <div class="meetings-list">
+                    <!-- Meeting Card 1 -->
+                    <div class="meeting-card">
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #4f46e5">09:00</div>
+                            <span class="duration">1h</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Planejamento Estratégico</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 8 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala de Conferência A</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <!-- Meeting Card 2 -->
+                    <div class="meeting-card">
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #10b981">14:30</div>
+                            <span class="duration">45min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Revisão de Projeto</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 4 participantes</p>
+                                <p><i class="fas fa-video"></i> Google Meet</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <!-- Meeting Card 3 -->
+                    <div class="meeting-card">
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #f59e0b">16:00</div>
+                            <span class="duration">30min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Feedback Semanal</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 3 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala 203</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
