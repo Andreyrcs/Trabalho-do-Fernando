@@ -9,14 +9,13 @@
 </head>
 <body>
     <div class="container">
-        <!-- Popup de Erro (inicialmente escondido) -->
         <div class="error-popup" id="errorPopup">
             <div class="popup-content">
                 <div class="popup-icon">
                     <i class="fas fa-exclamation-circle"></i>
                 </div>
-                <h3>Erro no Login</h3>
-                <p>Email ou senha incorretos. Tente novamente.</p>
+                <h3>Erro</h3>
+                <p>Email ou senha incorretos</p>
                 <div class="popup-actions">
                     <a href="#" class="btn-popup" onclick="document.getElementById('errorPopup').style.display='none'">Tentar Novamente</a>
                 </div>
@@ -29,17 +28,15 @@
                 <h1>AgendaPro</h1>
                 <p>Faça login para gerenciar suas reuniões</p>
             </div>
-            
-            <!-- Formulário de Login com ação que mostra o popup -->
             <form class="login-form" action="#" method="get" onsubmit="document.getElementById('errorPopup').style.display='flex'; return false;">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="E-mail" value="usuario@email.com" required>
+                    <input type="email" placeholder="E-mail" required>
                 </div>
                 
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Senha" value="123456" required>
+                    <input type="password" placeholder="Senha" required>
                 </div>
                 
                 <div class="remember-forgot">
@@ -54,114 +51,8 @@
             
             <div class="login-footer">
                 <p>Não tem uma conta? <a href="Cadastro.html">Cadastre-se</a></p>
-                <p class="demo-info"><i class="fas fa-info-circle"></i> Demo: qualquer email/senha</p>
             </div>
         </div>
     </div>
-
-    <!-- CSS para o popup (incluído aqui para facilitar) -->
-    <style>
-        .error-popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .popup-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .popup-icon {
-            width: 80px;
-            height: 80px;
-            background: #fee2e2;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-
-        .popup-icon i {
-            font-size: 40px;
-            color: #dc2626;
-        }
-
-        .popup-content h3 {
-            color: #1f2937;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .popup-content p {
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .popup-actions {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-popup {
-            background: linear-gradient(135deg, #4f46e5, #818cf8);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn-popup:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
-        }
-
-        .demo-info {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: #9ca3af;
-        }
-
-        .demo-info i {
-            margin-right: 0.25rem;
-            color: #4f46e5;
-        }
-    </style>
 </body>
 </html>
