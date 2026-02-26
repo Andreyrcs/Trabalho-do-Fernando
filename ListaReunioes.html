@@ -5,600 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Reuniões - AgendaPro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./assents/css/Reuniao.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #f3f4f6;
-        }
-
-        .dashboard {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-        }
-
-        .logo {
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .logo i {
-            font-size: 28px;
-            color: #4f46e5;
-        }
-
-        .logo h2 {
-            color: #111827;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 24px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .nav-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            color: #6b7280;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-
-        .nav-menu a i {
-            width: 20px;
-            font-size: 18px;
-        }
-
-        .nav-menu a:hover {
-            background: #f3f4f6;
-            color: #4f46e5;
-        }
-
-        .nav-menu a.active {
-            background: #4f46e5;
-            color: white;
-        }
-
-        .user-info {
-            padding: 20px 24px;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .user-info div {
-            flex: 1;
-        }
-
-        .user-info p {
-            color: #111827;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .user-info small {
-            color: #6b7280;
-            font-size: 12px;
-        }
-
-        .logout-btn {
-            color: #9ca3af;
-            transition: color 0.3s;
-        }
-
-        .logout-btn:hover {
-            color: #ef4444;
-        }
-
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 32px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .header-title h1 {
-            color: #111827;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .date-today {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .btn-new-meeting {
-            background: #4f46e5;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .btn-new-meeting:hover {
-            background: #4338ca;
-        }
-
-        .filters-section {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-
-        .filters-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .filters-title i {
-            color: #4f46e5;
-            font-size: 20px;
-        }
-
-        .filters-title h2 {
-            color: #111827;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .filters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .filter-group label {
-            color: #4b5563;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 10px 12px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #111827;
-            background: white;
-            cursor: pointer;
-        }
-
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .filter-actions {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-        }
-
-        .btn-filter {
-            background: #4f46e5;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-clear {
-            background: #f3f4f6;
-            color: #6b7280;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            background: #eef2ff;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4f46e5;
-            font-size: 24px;
-        }
-
-        .stat-info h3 {
-            color: #6b7280;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .stat-info .stat-number {
-            color: #111827;
-            font-size: 28px;
-            font-weight: 600;
-        }      
-        .meetings-tabs {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 16px;
-        }
-
-        .tab {
-            padding: 8px 16px;
-            color: #6b7280;
-            cursor: pointer;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .tab.active {
-            color: #4f46e5;
-        }
-
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -17px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #4f46e5;
-        }
-
-        .tab span {
-            background: #f3f4f6;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-left: 8px;
-        }
-
-        .meetings-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .meeting-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-
-        .meeting-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-        }
-
-        .meeting-date {
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .date-day {
-            color: #4f46e5;
-            font-size: 32px;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .date-month {
-            color: #6b7280;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        .meeting-time {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 100px;
-        }
-
-        .time-badge {
-            background: #4f46e5;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .duration {
-            color: #6b7280;
-            font-size: 12px;
-        }
-
-        .meeting-info {
-            flex: 1;
-        }
-
-        .meeting-info h3 {
-            color: #111827;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .meeting-details {
-            display: flex;
-            gap: 24px;
-        }
-
-        .meeting-details p {
-            color: #6b7280;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .meeting-details i {
-            color: #4f46e5;
-            width: 16px;
-        }
-
-        .meeting-status {
-            min-width: 100px;
-            text-align: right;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .status.scheduled {
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
-        .status.ongoing {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .status.completed {
-            background: #f3f4f6;
-            color: #4b5563;
-        }
-
-        .status.cancelled {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .meeting-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: #f3f4f6;
-            color: #6b7280;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .action-btn:hover {
-            background: #4f46e5;
-            color: white;
-        }
-
-        .meeting-link {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            text-decoration: none;
-            opacity: 0;
-        }
-
-        .date-group {
-            margin-bottom: 24px;
-        }
-
-        .date-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .date-header h3 {
-            color: #111827;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .date-header span {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .date-line {
-            flex: 1;
-            height: 1px;
-            background: #e5e7eb;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin-top: 32px;
-        }
-
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
-            background: white;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .page-btn:hover {
-            border-color: #4f46e5;
-            color: #4f46e5;
-        }
-
-        .page-btn.active {
-            background: #4f46e5;
-            border-color: #4f46e5;
-            color: white;
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 80px;
-            }
-            
-            .sidebar .logo h2,
-            .sidebar .nav-menu span,
-            .sidebar .user-info div {
-                display: none;
-            }
-            
-            .main-content {
-                margin-left: 80px;
-            }
-            
-            .user-info {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .meeting-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .meeting-date,
-            .meeting-time {
-                flex-direction: row;
-                gap: 16px;
-                align-items: center;
-            }
-            
-            .meeting-details {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .meeting-status {
-                text-align: left;
-            }
-        }
+        
     </style>
 </head>
 <body>
@@ -611,35 +20,24 @@
             </div>
             
             <nav class="nav-menu">
-                <a href="dashboard.html">
+                  <a href="Dashboard.html" >
                     <i class="fas fa-calendar-alt"></i>
                     <span>Calendário</span>
                 </a>
-                <a href="reunioes.html" class="active">
+                <a href="./ListaReunioes.html" class="active">
                     <i class="fas fa-clock"></i>
-                    <span>Minhas Reuniões</span>
+                    <span>Reuniões</span>
                 </a>
-                <a href="participantes.html">
-                    <i class="fas fa-users"></i>
-                    <span>Participantes</span>
-                </a>
-                <a href="relatorios.html">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Relatórios</span>
-                </a>
-                <a href="configuracoes.html">
-                    <i class="fas fa-cog"></i>
-                    <span>Configurações</span>
-                </a>
+                
             </nav>
             
             <div class="user-info">
                 <img src="https://ui-avatars.com/api/?name=João+Silva&background=4f46e5&color=fff&size=40" alt="Avatar">
                 <div>
-                    <p>João Silva</p>
-                    <small>joao.silva@email.com</small>
+                    <p>Ricardo</p>
+                    <small>ricardo@email.com</small>
                 </div>
-                <a href="login.html" class="logout-btn">
+                <a href="index.html" class="logout-btn">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
@@ -651,7 +49,7 @@
                     <h1>Minhas Reuniões</h1>
                     <p class="date-today">Visualize e gerencie todas as suas reuniões</p>
                 </div>
-                <a href="nova-reuniao.html" class="btn-new-meeting">
+                <a href="NovoAtendimento.html" class="btn-new-meeting">
                     <i class="fas fa-plus"></i> Nova Reunião
                 </a>
             </header>
@@ -797,7 +195,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                        
                     </div>
 
                     <div class="meeting-card">
@@ -824,7 +222,7 @@
                             <button class="action-btn" title="Participar"><i class="fas fa-video"></i></button>
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
 
                     <div class="meeting-card">
@@ -851,7 +249,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
                 </div>
 
@@ -886,7 +284,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
 
                     <div class="meeting-card">
@@ -913,7 +311,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
                 </div>
 
@@ -948,7 +346,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
                 </div>
 
@@ -983,7 +381,7 @@
                             <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
                             <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
                 </div>
 
@@ -1017,7 +415,7 @@
                         <div class="meeting-actions">
                             <button class="action-btn" title="Ver ata"><i class="fas fa-file-alt"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
 
                     <div class="meeting-card">
@@ -1043,7 +441,7 @@
                         <div class="meeting-actions">
                             <button class="action-btn" title="Ver ata"><i class="fas fa-file-alt"></i></button>
                         </div>
-                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                       
                     </div>
                 </div>
             </div>
