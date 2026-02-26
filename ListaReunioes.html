@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Reuniões - AgendaPro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: #4f46e5;
+        }
+
+        .logo h2 {
+            color: #111827;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #6b7280;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a i {
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .nav-menu a:hover {
+            background: #f3f4f6;
+            color: #4f46e5;
+        }
+
+        .nav-menu a.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .user-info {
+            padding: 20px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .user-info div {
+            flex: 1;
+        }
+
+        .user-info p {
+            color: #111827;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .user-info small {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            color: #9ca3af;
+            transition: color 0.3s;
+        }
+
+        .logout-btn:hover {
+            color: #ef4444;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 32px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header-title h1 {
+            color: #111827;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .date-today {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .btn-new-meeting {
+            background: #4f46e5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-new-meeting:hover {
+            background: #4338ca;
+        }
+
+        /* Filtros */
+        .filters-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .filters-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filters-title i {
+            color: #4f46e5;
+            font-size: 20px;
+        }
+
+        .filters-title h2 {
+            color: #111827;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .btn-filter {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-clear {
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: #eef2ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4f46e5;
+            font-size: 24px;
+        }
+
+        .stat-info h3 {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-info .stat-number {
+            color: #111827;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* Abas */
+        .meetings-tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 16px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            color: #6b7280;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #4f46e5;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #4f46e5;
+        }
+
+        .tab span {
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        /* Lista de Reuniões */
+        .meetings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .meeting-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .meeting-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .meeting-date {
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .date-day {
+            color: #4f46e5;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            color: #6b7280;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .meeting-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+        }
+
+        .time-badge {
+            background: #4f46e5;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .duration {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .meeting-info {
+            flex: 1;
+        }
+
+        .meeting-info h3 {
+            color: #111827;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .meeting-details {
+            display: flex;
+            gap: 24px;
+        }
+
+        .meeting-details p {
+            color: #6b7280;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meeting-details i {
+            color: #4f46e5;
+            width: 16px;
+        }
+
+        .meeting-status {
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status.scheduled {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .status.ongoing {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.completed {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .status.cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .meeting-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .meeting-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            opacity: 0;
+        }
+
+        .date-group {
+            margin-bottom: 24px;
+        }
+
+        .date-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .date-header h3 {
+            color: #111827;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .date-header span {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .date-line {
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 32px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            border-color: #4f46e5;
+            color: #4f46e5;
+        }
+
+        .page-btn.active {
+            background: #4f46e5;
+            border-color: #4f46e5;
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .sidebar .logo h2,
+            .sidebar .nav-menu span,
+            .sidebar .user-info div {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .meeting-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .meeting-date,
+            .meeting-time {
+                flex-direction: row;
+                gap: 16px;
+                align-items: center;
+            }
+            
+            .meeting-details {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .meeting-status {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i>
+                <h2>AgendaPro</h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="dashboard.html">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendário</span>
+                </a>
+                <a href="reunioes.html" class="active">
+                    <i class="fas fa-clock"></i>
+                    <span>Minhas Reuniões</span>
+                </a>
+                <a href="participantes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Participantes</span>
+                </a>
+                <a href="relatorios.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Relatórios</span>
+                </a>
+                <a href="configuracoes.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+            
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=João+Silva&background=4f46e5&color=fff&size=40" alt="Avatar">
+                <div>
+                    <p>João Silva</p>
+                    <small>joao.silva@email.com</small>
+                </div>
+                <a href="login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-title">
+                    <h1>Minhas Reuniões</h1>
+                    <p class="date-today">Visualize e gerencie todas as suas reuniões</p>
+                </div>
+                <a href="nova-reuniao.html" class="btn-new-meeting">
+                    <i class="fas fa-plus"></i> Nova Reunião
+                </a>
+            </header>
+
+            <div class="filters-section">
+                <div class="filters-title">
+                    <i class="fas fa-filter"></i>
+                    <h2>Filtrar Reuniões</h2>
+                </div>
+                
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Período</label>
+                        <select>
+                            <option>Todas as datas</option>
+                            <option>Hoje</option>
+                            <option>Esta semana</option>
+                            <option>Este mês</option>
+                            <option>Próximo mês</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select>
+                            <option>Todos os status</option>
+                            <option>Agendadas</option>
+                            <option>Em andamento</option>
+                            <option>Concluídas</option>
+                            <option>Canceladas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Tipo de reunião</label>
+                        <select>
+                            <option>Todos os tipos</option>
+                            <option>Presencial</option>
+                            <option>Videoconferência</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Data inicial</label>
+                        <input type="date" value="2026-02-01">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Data final</label>
+                        <input type="date" value="2026-02-28">
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="btn-filter">
+                            <i class="fas fa-search"></i> Aplicar Filtros
+                        </button>
+                        <button class="btn-clear">
+                            <i class="fas fa-times"></i> Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total de reuniões</h3>
+                        <p class="stat-number">24</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Este mês</h3>
+                        <p class="stat-number">12</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Próximas 7 dias</h3>
+                        <p class="stat-number">5</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Concluídas</h3>
+                        <p class="stat-number">18</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meetings-tabs">
+                <div class="tab active">Todas <span>24</span></div>
+                <div class="tab">Hoje <span>3</span></div>
+                <div class="tab">Próximas <span>8</span></div>
+                <div class="tab">Passadas <span>13</span></div>
+            </div>
+
+            <div class="meetings-list">
+                <!-- Grupo: Hoje -->
+                <div class="date-group">
+                    <div class="date-header">
+                        <h3>Hoje, 26 de Fevereiro de 2026</h3>
+                        <span>3 reuniões</span>
+                        <div class="date-line"></div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">26</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge">09:00</div>
+                            <span class="duration">1 hora</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Planejamento Estratégico</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 8 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala de Conferência A</p>
+                                <p><i class="fas fa-user"></i> Organizador: Você</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">26</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #10b981">14:30</div>
+                            <span class="duration">45 min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Revisão de Projeto</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 4 participantes</p>
+                                <p><i class="fas fa-video"></i> meet.google.com/abc-xyz</p>
+                                <p><i class="fas fa-user"></i> Organizador: Maria Santos</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status ongoing">Em andamento</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Participar"><i class="fas fa-video"></i></button>
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">26</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #f59e0b">16:00</div>
+                            <span class="duration">30 min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Feedback Semanal</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 3 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala 203</p>
+                                <p><i class="fas fa-user"></i> Organizador: Você</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+
+                <div class="date-group">
+                    <div class="date-header">
+                        <h3>Amanhã, 27 de Fevereiro de 2026</h3>
+                        <span>2 reuniões</span>
+                        <div class="date-line"></div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">27</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #8b5cf6">10:00</div>
+                            <span class="duration">1h 30min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Reunião com Cliente - TechCorp</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 5 participantes</p>
+                                <p><i class="fas fa-video"></i> Zoom</p>
+                                <p><i class="fas fa-user"></i> Organizador: Você</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">27</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #ec4899">15:00</div>
+                            <span class="duration">1 hora</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Entrevista - Novo Desenvolvedor</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 3 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala de Entrevistas</p>
+                                <p><i class="fas fa-user"></i> Organizador: RH</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+
+                <div class="date-group">
+                    <div class="date-header">
+                        <h3>28 de Fevereiro de 2026</h3>
+                        <span>1 reunião</span>
+                        <div class="date-line"></div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">28</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #14b8a6">11:00</div>
+                            <span class="duration">2 horas</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Workshop de Inovação</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 12 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Auditório Principal</p>
+                                <p><i class="fas fa-user"></i> Organizador: Você</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+
+                <div class="date-group">
+                    <div class="date-header">
+                        <h3>5 de Março de 2026</h3>
+                        <span>1 reunião</span>
+                        <div class="date-line"></div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">05</div>
+                            <div class="date-month">MAR</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #f97316">09:30</div>
+                            <span class="duration">1h 30min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Reunião de Alinhamento Trimestral</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 15 participantes</p>
+                                <p><i class="fas fa-video"></i> Teams</p>
+                                <p><i class="fas fa-user"></i> Organizador: Diretoria</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status scheduled">Agendada</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" title="Cancelar"><i class="fas fa-times"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+
+                <div class="date-group">
+                    <div class="date-header">
+                        <h3>25 de Fevereiro de 2026</h3>
+                        <span>2 reuniões</span>
+                        <div class="date-line"></div>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">25</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #6b7280">14:00</div>
+                            <span class="duration">1 hora</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Review de Sprint</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 6 participantes</p>
+                                <p><i class="fas fa-map-marker-alt"></i> Sala de Reuniões B</p>
+                                <p><i class="fas fa-user"></i> Organizador: Você</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status completed">Concluída</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Ver ata"><i class="fas fa-file-alt"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-date">
+                            <div class="date-day">25</div>
+                            <div class="date-month">FEV</div>
+                        </div>
+                        <div class="meeting-time">
+                            <div class="time-badge" style="background: #6b7280">16:30</div>
+                            <span class="duration">30 min</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>Daily Meeting</h3>
+                            <div class="meeting-details">
+                                <p><i class="fas fa-users"></i> 5 participantes</p>
+                                <p><i class="fas fa-video"></i> Google Meet</p>
+                                <p><i class="fas fa-user"></i> Organizador: Tech Lead</p>
+                            </div>
+                        </div>
+                        <div class="meeting-status">
+                            <span class="status completed">Concluída</span>
+                        </div>
+                        <div class="meeting-actions">
+                            <button class="action-btn" title="Ver ata"><i class="fas fa-file-alt"></i></button>
+                        </div>
+                        <a href="detalhe-reuniao.html" class="meeting-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="pagination">
+                <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <
