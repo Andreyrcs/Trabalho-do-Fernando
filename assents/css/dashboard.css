@@ -268,8 +268,11 @@
     background: var(--light);
     border-radius: 12px;
     padding: 0.5rem;
-    position: relative;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .day:hover {
@@ -278,9 +281,17 @@
 }
 
 .day-number {
+   width: 100%;
+}
+
+.day-number div{
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--dark);
+}
+.continuer{
+    width: 100%;
+    display: flex;
 }
 
 .other-month {
@@ -305,10 +316,8 @@
 }
 
 .meeting-indicator {
-    position: absolute;
-    bottom: 5px;
+   bottom: 5px;
     left: 50%;
-    transform: translateX(-50%);
     width: 20px;
     height: 4px;
     background: var(--primary);
