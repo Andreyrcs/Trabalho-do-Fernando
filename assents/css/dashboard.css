@@ -126,7 +126,7 @@
     color: var(--danger);
 }
 
-/* Main Content */
+
 .main-content {
     flex: 1;
     margin-left: 280px;
@@ -508,7 +508,6 @@ z-index: 9999;
     text-decoration: none;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .sidebar {
         width: 80px;

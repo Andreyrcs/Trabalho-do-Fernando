@@ -9,6 +9,14 @@
 </head>
 <body>
     <div class="container">
+        <div class="popup-overlay" id="popup-sucesso">
+        <div class="popup-content">
+            <i class="fas fa-check-circle"></i>
+            <h2>Agendamento Realizado!</h2>
+            <p>Sua reunião foi agendada com sucesso.</p>
+            <a href="Dashboard.html" class="btn-popup">OK</a>
+        </div>
+    </div>
         <div class="meeting-card">
             <div class="card-header">
                 <a href="Dashboard.html" class="back-btn">
@@ -17,7 +25,7 @@
                 <h1><i class="fas fa-plus-circle"></i> Agendar Nova Reunião</h1>
             </div>
             
-            <form class="meeting-form"  action='./Dashboard.html'>
+            <form class="meeting-form"   action="#popup-sucesso">
                 <div class="form-group">
                     <label for="titulo">Título da Reunião</label>
                     <input type="text" id="titulo" placeholder="Ex: Reunião de alinhamento" required>
@@ -79,6 +87,7 @@
                     <button type="button" class="btn-cancel" onclick="window.location.href='Dashboard.html'">Cancelar</button>
                     <button type="submit" class="btn-save">Agendar Reunião</button>
                 </div>
+                
             </form>
         </div>
     </div>
